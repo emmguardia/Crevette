@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(#1d1d1d, #000000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+/* le fond */
+.background {
+    position: absolute;
+    inset: 0;
+    background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyxUXqYizvq2x3kgsvYNWGPr6z1nZrnyvzDg&s");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.25;
+}
+
+/* Rectangle central */
+.center-panel {
+    width: 550px;
+    height: 900px;
+    padding: 25px;
+    background: rgba(10, 20, 55, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+    color: #cfd7ff;
+    z-index: 2;
+}
+
+.center-panel h2 {
+    color: #9dc3f4;
+    margin-bottom: 15px;
+}
+
+.stats p {
+    margin-bottom: 5px;
+}
+
+.matrix{
+    position: absolute;
+    top:-160vh;
+    height:130vh;
+    width:20px;
+    color:rgb(43,255,0);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: drop 3s linear infinite;
+}
+
+@keyframes drop {
+    to{
+        top:100vh;
+    }
+    
+}
+
+.matrix::after{
+    position: absolute;
+    content:"";
+    height:100%;
+    width:100%;
+    pointer-events: none;
+}
+
+.avoid-clicks{
+    pointer-events: none;
+}
+
+.game-block {
+  width: 100px;
+  height: 100px;
+  background: red;
+  position: absolute;
+  top: 30px;      /* Ajuste la position verticale */
+  right: 160px;    /* Ajuste la position horizontale */
+}
+
+.tic-tac-toe td {
+    border: 1px solid white;
+    width: 100px;
+    height: 100px;
+}
+
+.tic-tac-toe .center-border {
+    border-color: #eee;
+}
