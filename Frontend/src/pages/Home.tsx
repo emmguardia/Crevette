@@ -8,7 +8,7 @@ const SKILLS = [
 ]
 
 const STATS = [
-  { value: '19', label: 'ans' },
+  { value: '20', label: 'ans' },
   { value: '1ʳᵉ', label: 'année à Guardia' },
   { value: '∞', label: 'idées de projets' },
 ]
@@ -54,7 +54,7 @@ export default function Home() {
           transition={{ duration: 0.6, delay: 0.15 }}
           className="mt-6 max-w-xl text-lg text-ink-300"
         >
-          19 ans, étudiante chez <span className="text-white">Guardia Cybersecurity School</span>.
+          20 ans, étudiante chez <span className="text-white">Guardia Cybersecurity School</span>.
           J'aime la cuisine, le crochet, parler — et apprendre tout ce qui touche aux réseaux et à la sécu.
         </motion.p>
 

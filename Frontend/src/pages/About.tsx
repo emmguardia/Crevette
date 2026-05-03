@@ -38,7 +38,7 @@ export default function About() {
             transition={{ duration: 0.5 }}
             className="text-xl text-white"
           >
-            Bonjour ! Je m'appelle <strong className="text-gradient">Quianne</strong>. J'ai 19 ans, j'aime cuisiner, faire du crochet et parler !
+            Bonjour ! Je m'appelle <strong className="text-gradient">Quianne</strong>. J'ai 20 ans, j'aime cuisiner, faire du crochet et parler !
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 10 }}

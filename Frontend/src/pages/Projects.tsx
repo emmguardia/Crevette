@@ -9,7 +9,7 @@ const PROJECTS = [
     title: 'Site Web',
     href: 'https://nsibranly.fr/membres/quianneQ/',
     tag: 'Web · NSI',
-    desc: 'Mon portfolio personnel hébergé sur nsibranly. HTML, CSS, et beaucoup de patience.',
+    desc: 'Mon portfolio personnel hébergé sur mon serveur. HTML, CSS, et beaucoup de patience.',
     tech: ['HTML', 'CSS', 'JS'],
     color: 'from-violet-soft/20 to-fuchsia-soft/10',
   },
