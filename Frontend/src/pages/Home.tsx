@@ -3,8 +3,16 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Sparkles, Shield, Network, Code2 } from 'lucide-react'
 
 const SKILLS = [
-  'Cybersécurité', 'Réseau', 'Pare-feu', 'VPN', 'Linux', 'Python',
-  'Crochet 🧶', 'Cuisine', 'Curiosité', 'Documentation',
+  'Cybersécurité',
+  'Réseau',
+  'Pare-feu',
+  'VPN',
+  'Linux',
+  'Python',
+  'Crochet 🧶',
+  'Cuisine',
+  'Curiosité',
+  'Documentation',
 ]
 
 const STATS = [
@@ -14,9 +22,21 @@ const STATS = [
 ]
 
 const FEATURES = [
-  { icon: Shield, title: 'Cybersécurité', desc: 'Sécurisation de l\'infrastructure, accès distant, supervision.' },
-  { icon: Network, title: 'Réseau', desc: 'Conception, configuration et déploiement complet d\'un réseau d\'entreprise.' },
-  { icon: Code2, title: 'Polyvalente', desc: 'De l\'analyse des besoins à la documentation finale, du début à la fin.' },
+  {
+    icon: Shield,
+    title: 'Cybersécurité',
+    desc: "Sécurisation de l'infrastructure, accès distant, supervision.",
+  },
+  {
+    icon: Network,
+    title: 'Réseau',
+    desc: "Conception, configuration et déploiement complet d'un réseau d'entreprise.",
+  },
+  {
+    icon: Code2,
+    title: 'Polyvalente',
+    desc: "De l'analyse des besoins à la documentation finale, du début à la fin.",
+  },
 ]
 
 export default function Home() {
@@ -43,7 +63,8 @@ export default function Home() {
           transition={{ duration: 0.6, delay: 0.05 }}
           className="font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-[5.5rem]"
         >
-          Salut, moi c'est<br />
+          Salut, moi c'est
+          <br />
           <span className="text-gradient">Quianne.</span>
           <span className="ml-2 inline-block h-[0.85em] w-[0.06em] translate-y-[0.08em] bg-current animate-blink" />
         </motion.h1>
@@ -55,7 +76,8 @@ export default function Home() {
           className="mt-6 max-w-xl text-lg text-ink-300"
         >
           20 ans, étudiante chez <span className="text-white">Guardia Cybersecurity School</span>.
-          J'aime la cuisine, le crochet, parler — et apprendre tout ce qui touche aux réseaux et à la sécu.
+          J'aime la cuisine, le crochet, parler — et apprendre tout ce qui touche aux réseaux et à
+          la sécu.
         </motion.p>
 
         <motion.div
@@ -88,7 +110,9 @@ export default function Home() {
         >
           {STATS.map(s => (
             <div key={s.label} className="text-center">
-              <div className="font-display text-3xl font-bold text-white sm:text-4xl">{s.value}</div>
+              <div className="font-display text-3xl font-bold text-white sm:text-4xl">
+                {s.value}
+              </div>
               <div className="mt-1 text-xs uppercase tracking-wider text-ink-300">{s.label}</div>
             </div>
           ))}
@@ -146,10 +170,16 @@ export default function Home() {
               Mes projets, mon parcours, et même un petit jeu du pendu pour passer le temps.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/projects" className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 font-medium text-ink-950 hover:bg-ink-100">
+              <Link
+                to="/projects"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 font-medium text-ink-950 hover:bg-ink-100"
+              >
                 Mes projets <ArrowRight className="size-4" />
               </Link>
-              <Link to="/game" className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-5 py-2.5 font-medium text-white hover:bg-white/[0.08]">
+              <Link
+                to="/game"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-5 py-2.5 font-medium text-white hover:bg-white/[0.08]"
+              >
                 Jouer au pendu
               </Link>
             </div>

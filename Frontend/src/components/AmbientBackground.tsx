@@ -9,16 +9,24 @@ export default function AmbientBackground() {
       />
       <div
         className="absolute top-1/3 -right-40 h-[36rem] w-[36rem] rounded-full opacity-30 blur-[120px] animate-aurora"
-        style={{ background: 'radial-gradient(circle, #db2777 0%, transparent 60%)', animationDelay: '-6s' }}
+        style={{
+          background: 'radial-gradient(circle, #db2777 0%, transparent 60%)',
+          animationDelay: '-6s',
+        }}
       />
       <div
         className="absolute bottom-0 left-1/3 h-[28rem] w-[28rem] rounded-full opacity-20 blur-[120px] animate-aurora"
-        style={{ background: 'radial-gradient(circle, #f59e0b 0%, transparent 60%)', animationDelay: '-12s' }}
+        style={{
+          background: 'radial-gradient(circle, #f59e0b 0%, transparent 60%)',
+          animationDelay: '-12s',
+        }}
       />
 
       <div
         className="absolute inset-0"
-        style={{ background: 'radial-gradient(ellipse at center, transparent 30%, rgba(5,5,7,0.85) 100%)' }}
+        style={{
+          background: 'radial-gradient(ellipse at center, transparent 30%, rgba(5,5,7,0.85) 100%)',
+        }}
       />
     </div>
   )

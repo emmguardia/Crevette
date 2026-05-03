@@ -69,16 +69,34 @@ export default function Contact() {
             >
               <AnimatePresence mode="wait" initial={false}>
                 {status === 'sent' ? (
-                  <motion.span key="sent" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} className="inline-flex items-center gap-2">
+                  <motion.span
+                    key="sent"
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    className="inline-flex items-center gap-2"
+                  >
                     <Check className="size-4" /> Envoyé
                   </motion.span>
                 ) : status === 'sending' ? (
-                  <motion.span key="sending" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                  <motion.span
+                    key="sending"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
                     Envoi…
                   </motion.span>
                 ) : (
-                  <motion.span key="idle" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} className="inline-flex items-center gap-2">
-                    Envoyer <Send className="size-4 transition-transform group-hover:translate-x-0.5" />
+                  <motion.span
+                    key="idle"
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    className="inline-flex items-center gap-2"
+                  >
+                    Envoyer{' '}
+                    <Send className="size-4 transition-transform group-hover:translate-x-0.5" />
                   </motion.span>
                 )}
               </AnimatePresence>
@@ -98,7 +116,8 @@ export default function Contact() {
           <InfoCard icon={Mail} label="Email" value="quianne@example.com" />
           <div className="rounded-card border border-white/10 bg-gradient-to-br from-violet-soft/[0.08] via-transparent to-fuchsia-soft/[0.06] p-5">
             <p className="text-sm text-ink-200">
-              ✨ Disponible pour discuter de cybersécurité, projets étudiants, ou recettes de cookies.
+              ✨ Disponible pour discuter de cybersécurité, projets étudiants, ou recettes de
+              cookies.
             </p>
           </div>
         </motion.aside>
@@ -108,9 +127,22 @@ export default function Contact() {
 }
 
 function Field({
-  label, name, type = 'text', textarea, required, autoComplete,
-}: { label: string; name: string; type?: string; textarea?: boolean; required?: boolean; autoComplete?: string }) {
-  const cls = 'peer w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 pt-6 pb-2 text-white outline-none transition-all placeholder-transparent focus:border-violet-soft/50 focus:bg-white/[0.06] focus:ring-4 focus:ring-violet-soft/15'
+  label,
+  name,
+  type = 'text',
+  textarea,
+  required,
+  autoComplete,
+}: {
+  label: string
+  name: string
+  type?: string
+  textarea?: boolean
+  required?: boolean
+  autoComplete?: string
+}) {
+  const cls =
+    'peer w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 pt-6 pb-2 text-white outline-none transition-all placeholder-transparent focus:border-violet-soft/50 focus:bg-white/[0.06] focus:ring-4 focus:ring-violet-soft/15'
   return (
     <label className="relative block">
       {textarea ? (
@@ -141,7 +173,15 @@ function Field({
   )
 }
 
-function InfoCard({ icon: Icon, label, value }: { icon: typeof Mail; label: string; value: string }) {
+function InfoCard({
+  icon: Icon,
+  label,
+  value,
+}: {
+  icon: typeof Mail
+  label: string
+  value: string
+}) {
   return (
     <div className="flex items-center gap-3 rounded-card border border-white/10 bg-white/[0.03] p-4">
       <span className="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-violet-soft/20 to-fuchsia-soft/10 text-violet-soft ring-1 ring-white/10">

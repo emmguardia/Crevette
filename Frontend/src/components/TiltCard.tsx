@@ -12,8 +12,14 @@ export default function TiltCard({ children, className, intensity = 8 }: Props) 
   const ref = useRef<HTMLDivElement>(null)
   const mx = useMotionValue(0.5)
   const my = useMotionValue(0.5)
-  const rx = useSpring(useTransform(my, [0, 1], [intensity, -intensity]), { stiffness: 240, damping: 22 })
-  const ry = useSpring(useTransform(mx, [0, 1], [-intensity, intensity]), { stiffness: 240, damping: 22 })
+  const rx = useSpring(useTransform(my, [0, 1], [intensity, -intensity]), {
+    stiffness: 240,
+    damping: 22,
+  })
+  const ry = useSpring(useTransform(mx, [0, 1], [-intensity, intensity]), {
+    stiffness: 240,
+    damping: 22,
+  })
 
   const handleMove = (e: MouseEvent<HTMLDivElement>) => {
     const r = ref.current?.getBoundingClientRect()
@@ -23,7 +29,10 @@ export default function TiltCard({ children, className, intensity = 8 }: Props) 
     ref.current!.style.setProperty('--mx', `${e.clientX - r.left}px`)
     ref.current!.style.setProperty('--my', `${e.clientY - r.top}px`)
   }
-  const handleLeave = () => { mx.set(0.5); my.set(0.5) }
+  const handleLeave = () => {
+    mx.set(0.5)
+    my.set(0.5)
+  }
 
   return (
     <motion.div

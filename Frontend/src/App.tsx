@@ -28,7 +28,11 @@ function PageWrap({ children }: { children: React.ReactNode }) {
 function RouteFallback() {
   return (
     <div className="mx-auto flex min-h-[40vh] max-w-6xl items-center justify-center px-5 py-20">
-      <div className="size-10 animate-spin rounded-full border-2 border-white/10 border-t-violet-soft" aria-label="Chargement" role="status" />
+      <div
+        className="size-10 animate-spin rounded-full border-2 border-white/10 border-t-violet-soft"
+        aria-label="Chargement"
+        role="status"
+      />
     </div>
   )
 }
@@ -65,15 +69,52 @@ export default function App() {
               path="/"
               element={
                 <AnimatePresence mode="wait">
-                  <PageWrap key="home"><Home /></PageWrap>
+                  <PageWrap key="home">
+                    <Home />
+                  </PageWrap>
                 </AnimatePresence>
               }
             />
-            <Route path="/about" element={<PageWrap><About /></PageWrap>} />
-            <Route path="/projects" element={<PageWrap><Projects /></PageWrap>} />
-            <Route path="/game" element={<PageWrap><Game /></PageWrap>} />
-            <Route path="/contact" element={<PageWrap><Contact /></PageWrap>} />
-            <Route path="*" element={<PageWrap><NotFound /></PageWrap>} />
+            <Route
+              path="/about"
+              element={
+                <PageWrap>
+                  <About />
+                </PageWrap>
+              }
+            />
+            <Route
+              path="/projects"
+              element={
+                <PageWrap>
+                  <Projects />
+                </PageWrap>
+              }
+            />
+            <Route
+              path="/game"
+              element={
+                <PageWrap>
+                  <Game />
+                </PageWrap>
+              }
+            />
+            <Route
+              path="/contact"
+              element={
+                <PageWrap>
+                  <Contact />
+                </PageWrap>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <PageWrap>
+                  <NotFound />
+                </PageWrap>
+              }
+            />
           </Route>
         </Routes>
       </Suspense>

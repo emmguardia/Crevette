@@ -18,12 +18,8 @@ export default function SectionHeading({ kicker, title, subtitle }: Props) {
       <span className="font-mono text-xs uppercase tracking-[0.2em] text-violet-soft">
         {kicker}
       </span>
-      <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
-        {title}
-      </h2>
-      {subtitle && (
-        <p className="max-w-2xl text-ink-300">{subtitle}</p>
-      )}
+      <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">{title}</h2>
+      {subtitle && <p className="max-w-2xl text-ink-300">{subtitle}</p>}
     </motion.div>
   )
 }

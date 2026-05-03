@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+# Validate the commit message against Conventional Commits.
+cd "$(dirname -- "$0")/../Frontend" || exit 1
+pnpm exec commitlint --edit "$1"

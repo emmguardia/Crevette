@@ -5,8 +5,17 @@ import SectionHeading from '@/components/SectionHeading'
 import { cn } from '@/lib/utils'
 
 const VOCAB = [
-  'pomme', 'alphabet', 'philippines', 'sabotage', 'largeur',
-  'crochet', 'cuisine', 'reseau', 'guardia', 'cyber', 'pare-feu',
+  'pomme',
+  'alphabet',
+  'philippines',
+  'sabotage',
+  'largeur',
+  'crochet',
+  'cuisine',
+  'reseau',
+  'guardia',
+  'cyber',
+  'pare-feu',
 ] as const
 const MAX_LIVES = 6
 const ALPHA = 'abcdefghijklmnopqrstuvwxyz'.split('')
@@ -33,16 +42,19 @@ export default function Game() {
   const lost = lives <= 0 && !won
   const over = won || lost
 
-  const onGuess = useCallback((raw: string) => {
-    if (over) return
-    const c = normalize(raw).slice(0, 1)
-    if (!c || !/^[a-zà-ÿ]$/.test(c) || tried.has(c)) return
-    setTried(prev => new Set(prev).add(c))
-    if (!word.includes(c)) {
-      setLives(l => l - 1)
-      setShake(s => s + 1)
-    }
-  }, [word, tried, over])
+  const onGuess = useCallback(
+    (raw: string) => {
+      if (over) return
+      const c = normalize(raw).slice(0, 1)
+      if (!c || !/^[a-zà-ÿ]$/.test(c) || tried.has(c)) return
+      setTried(prev => new Set(prev).add(c))
+      if (!word.includes(c)) {
+        setLives(l => l - 1)
+        setShake(s => s + 1)
+      }
+    },
+    [word, tried, over],
+  )
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -134,7 +146,8 @@ export default function Game() {
                 exit={{ opacity: 0 }}
                 className="mb-6 flex items-center justify-center gap-2 rounded-xl border border-emerald-400/30 bg-emerald-400/10 px-4 py-3 text-emerald-300"
               >
-                <Trophy className="size-4" /> Bravo ! Le mot était <strong className="font-semibold">{word}</strong>.
+                <Trophy className="size-4" /> Bravo ! Le mot était{' '}
+                <strong className="font-semibold">{word}</strong>.
               </motion.div>
             )}
             {lost && (
@@ -145,7 +158,8 @@ export default function Game() {
                 exit={{ opacity: 0 }}
                 className="mb-6 flex items-center justify-center gap-2 rounded-xl border border-rose-400/30 bg-rose-400/10 px-4 py-3 text-rose-300"
               >
-                <Skull className="size-4" /> Perdu. Le mot était <strong className="font-semibold">{word}</strong>.
+                <Skull className="size-4" /> Perdu. Le mot était{' '}
+                <strong className="font-semibold">{word}</strong>.
               </motion.div>
             )}
           </AnimatePresence>
@@ -165,7 +179,8 @@ export default function Game() {
                   className={cn(
                     'aspect-square rounded-lg border text-sm font-semibold uppercase transition-all',
                     'disabled:cursor-not-allowed',
-                    !isTried && 'border-white/15 bg-white/[0.04] text-white hover:border-violet-soft/60 hover:bg-violet-soft/10',
+                    !isTried &&
+                      'border-white/15 bg-white/[0.04] text-white hover:border-violet-soft/60 hover:bg-violet-soft/10',
                     isHit && 'border-emerald-400/50 bg-emerald-400/15 text-emerald-200',
                     isMiss && 'border-white/5 bg-white/[0.02] text-ink-400 line-through',
                     over && !isTried && 'opacity-40',
@@ -202,8 +217,17 @@ function Hangman({ lives }: { lives: number }) {
   const stroke = 'rgba(255,255,255,0.7)'
   return (
     <div className="rounded-card border border-white/10 bg-white/[0.03] p-6">
-      <div className="mb-3 font-mono text-[0.7rem] uppercase tracking-wider text-ink-300">Pendu</div>
-      <svg viewBox="0 0 200 240" className="w-full" stroke={stroke} strokeWidth="4" strokeLinecap="round" fill="none">
+      <div className="mb-3 font-mono text-[0.7rem] uppercase tracking-wider text-ink-300">
+        Pendu
+      </div>
+      <svg
+        viewBox="0 0 200 240"
+        className="w-full"
+        stroke={stroke}
+        strokeWidth="4"
+        strokeLinecap="round"
+        fill="none"
+      >
         {/* Gallows */}
         <line x1="20" y1="220" x2="180" y2="220" />
         <line x1="50" y1="220" x2="50" y2="20" />

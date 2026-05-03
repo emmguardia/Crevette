@@ -18,7 +18,14 @@ updates:
       prefix: "chore(deps)"
       prefix-development: "chore(deps-dev)"
       include: "scope"
+    # Block major bumps globally — they almost always require code changes.
+    # Review and bump them by hand on a schedule.
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
     groups:
+      # Group everything related to React together so version skew never happens.
       react:
         patterns:
           - "react"
@@ -30,10 +37,30 @@ updates:
         patterns:
           - "tailwindcss"
           - "@tailwindcss/*"
+          - "tailwind-merge"
       vite:
         patterns:
           - "vite"
           - "@vitejs/*"
+          - "vite-plugin-*"
+      testing:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
+          - "@testing-library/*"
+          - "happy-dom"
+          - "jsdom"
+      lint:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "@eslint/*"
+          - "typescript-eslint"
+          - "prettier"
+          - "prettier-*"
+          - "lint-staged"
+          - "husky"
+          - "@commitlint/*"
       types:
         patterns:
           - "@types/*"
@@ -60,3 +87,7 @@ updates:
     commit-message:
       prefix: "ci"
       include: "scope"
+    groups:
+      actions:
+        patterns:
+          - "*"

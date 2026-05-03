@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+# Run lint-staged from Frontend/ — git invokes hooks at the repo root.
+cd "$(dirname -- "$0")/../Frontend" || exit 1
+pnpm exec lint-staged --config .lintstagedrc.json

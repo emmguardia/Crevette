@@ -1,0 +1,64 @@
+name: 🐛 Bug
+description: Quelque chose ne marche pas comme prévu
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci de prendre le temps de signaler un bug.
+        Avant de créer un ticket, vérifie qu'il n'existe pas déjà :
+        https://github.com/emmguardia/Crevette/issues
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Que s'est-il passé ?
+      description: Décris le bug et ce que tu attendais à la place.
+      placeholder: "Quand je clique sur X, Y se passe au lieu de Z."
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Étapes pour reproduire
+      placeholder: |
+        1. Aller sur /game
+        2. Taper la lettre 'a'
+        3. Voir l'erreur
+    validations:
+      required: true
+
+  - type: input
+    id: page
+    attributes:
+      label: Page concernée
+      placeholder: "/projects, /game, etc."
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Navigateur
+      options:
+        - Chrome / Edge / Brave
+        - Firefox
+        - Safari
+        - Mobile Safari
+        - Mobile Chrome
+        - Autre
+    validations:
+      required: true
+
+  - type: textarea
+    id: console
+    attributes:
+      label: Erreurs console (optionnel)
+      render: shell
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Pré-requis
+      options:
+        - label: J'ai cherché les issues existantes
+          required: true

@@ -17,7 +17,7 @@ const PROJECTS = [
     icon: Network,
     title: 'Projet Réseau',
     tag: 'Infrastructure',
-    desc: 'Conception et déploiement complet de l\'infrastructure réseau d\'une entreprise : serveurs, postes clients, pare-feu, routage. Système sécurisé avec gestion des droits, accès distant via VPN, supervision réseau. De l\'analyse des besoins à la documentation finale.',
+    desc: "Conception et déploiement complet de l'infrastructure réseau d'une entreprise : serveurs, postes clients, pare-feu, routage. Système sécurisé avec gestion des droits, accès distant via VPN, supervision réseau. De l'analyse des besoins à la documentation finale.",
     tech: ['VPN', 'Pare-feu', 'AD', 'Supervision'],
     color: 'from-fuchsia-soft/20 to-amber-soft/10',
   },
@@ -44,7 +44,9 @@ export default function Projects() {
         {PROJECTS.map((p, i) => {
           const inner = (
             <div className="relative flex h-full flex-col p-6">
-              <div className={`mb-5 grid size-12 place-items-center rounded-xl bg-gradient-to-br ${p.color} text-violet-soft ring-1 ring-white/10`}>
+              <div
+                className={`mb-5 grid size-12 place-items-center rounded-xl bg-gradient-to-br ${p.color} text-violet-soft ring-1 ring-white/10`}
+              >
                 <p.icon className="size-5" />
               </div>
               <div className="mb-2 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-violet-soft">
@@ -54,7 +56,10 @@ export default function Projects() {
               <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-300">{p.desc}</p>
               <div className="mt-5 flex flex-wrap gap-1.5">
                 {p.tech.map(t => (
-                  <span key={t} className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-0.5 text-xs text-ink-200">
+                  <span
+                    key={t}
+                    className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-0.5 text-xs text-ink-200"
+                  >
                     {t}
                   </span>
                 ))}
@@ -77,7 +82,12 @@ export default function Projects() {
             >
               <TiltCard className="h-full">
                 {'href' in p && p.href ? (
-                  <a href={p.href} target="_blank" rel="noopener noreferrer" className="block h-full text-inherit no-underline">
+                  <a
+                    href={p.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block h-full text-inherit no-underline"
+                  >
                     {inner}
                   </a>
                 ) : (

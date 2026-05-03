@@ -18,37 +18,95 @@ defaults:
   run:
     working-directory: Frontend
 
-jobs:
-  build:
-    name: Typecheck & build
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+env:
+  HUSKY: 0
 
+jobs:
+  lint:
+    name: Lint & format
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           persist-credentials: false
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v4
         with:
-          # The packageManager field lives in Frontend/package.json — point the
-          # action at it, otherwise it walks up from the repo root and fails.
           package_json_file: Frontend/package.json
           run_install: false
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
           cache-dependency-path: Frontend/pnpm-lock.yaml
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
 
-      - name: Audit (high severity, fail only on prod deps)
+      - name: ESLint
+        run: pnpm lint
+
+      - name: Prettier check
+        run: pnpm format:check
+
+  test:
+    name: Test (vitest)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: Frontend/package.json
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: Frontend/pnpm-lock.yaml
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Run tests with coverage
+        run: pnpm test:coverage
+
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: Frontend/coverage
+          retention-days: 7
+          if-no-files-found: ignore
+
+  build:
+    name: Typecheck & build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: Frontend/package.json
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: Frontend/pnpm-lock.yaml
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Audit (informational only)
         run: pnpm audit --prod --audit-level=high || true
 
       - name: Typecheck
@@ -56,6 +114,9 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+      - name: Bundle size budget
+        run: pnpm size
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
