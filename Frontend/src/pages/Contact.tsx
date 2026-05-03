@@ -10,10 +10,19 @@ export default function Contact() {
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    const form = e.currentTarget
+    const honeypot = (form.elements.namedItem('website') as HTMLInputElement | null)?.value
+    if (honeypot) {
+      // Almost certainly a bot — pretend success silently.
+      setStatus('sent')
+      form.reset()
+      setTimeout(() => setStatus('idle'), 3000)
+      return
+    }
     setStatus('sending')
     setTimeout(() => {
       setStatus('sent')
-      ;(e.target as HTMLFormElement).reset()
+      form.reset()
       setTimeout(() => setStatus('idle'), 3000)
     }, 700)
   }
@@ -36,9 +45,18 @@ export default function Contact() {
           className="rounded-card border border-white/10 bg-white/[0.03] p-7 backdrop-blur"
         >
           <div className="grid gap-4">
-            <Field label="Nom" name="nom" type="text" required />
-            <Field label="Email" name="email" type="email" required />
-            <Field label="Message" name="message" textarea required />
+            <Field label="Nom" name="nom" type="text" autoComplete="name" required />
+            <Field label="Email" name="email" type="email" autoComplete="email" required />
+            <Field label="Message" name="message" autoComplete="off" textarea required />
+            {/* Honeypot — bots fill it, humans don't see it. */}
+            <input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              className="absolute h-0 w-0 opacity-0"
+              aria-hidden="true"
+            />
           </div>
           <div className="mt-6 flex items-center justify-between gap-3">
             <p className="text-xs text-ink-300">
@@ -90,15 +108,31 @@ export default function Contact() {
 }
 
 function Field({
-  label, name, type = 'text', textarea, required,
-}: { label: string; name: string; type?: string; textarea?: boolean; required?: boolean }) {
+  label, name, type = 'text', textarea, required, autoComplete,
+}: { label: string; name: string; type?: string; textarea?: boolean; required?: boolean; autoComplete?: string }) {
   const cls = 'peer w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 pt-6 pb-2 text-white outline-none transition-all placeholder-transparent focus:border-violet-soft/50 focus:bg-white/[0.06] focus:ring-4 focus:ring-violet-soft/15'
   return (
     <label className="relative block">
       {textarea ? (
-        <textarea name={name} rows={5} required={required} placeholder={label} className={`${cls} min-h-32 resize-y`} />
+        <textarea
+          name={name}
+          rows={5}
+          required={required}
+          placeholder={label}
+          autoComplete={autoComplete}
+          maxLength={5000}
+          className={`${cls} min-h-32 resize-y`}
+        />
       ) : (
-        <input type={type} name={name} required={required} placeholder={label} className={cls} />
+        <input
+          type={type}
+          name={name}
+          required={required}
+          placeholder={label}
+          autoComplete={autoComplete}
+          maxLength={type === 'email' ? 254 : 200}
+          className={cls}
+        />
       )}
       <span className="pointer-events-none absolute left-4 top-2 text-xs uppercase tracking-wider text-ink-300 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-placeholder-shown:text-ink-400 peer-focus:top-2 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-wider peer-focus:text-violet-soft">
         {label}

@@ -25,6 +25,12 @@ export default function Layout() {
 
   return (
     <div className="relative flex min-h-screen flex-col">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-ink-950 focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-violet-soft"
+      >
+        Aller au contenu principal
+      </a>
       <AmbientBackground />
 
       <header className="sticky top-0 z-40 border-b border-white/5 backdrop-blur-xl backdrop-saturate-150 bg-ink-950/60">
@@ -66,8 +72,13 @@ export default function Layout() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub"
-               className="hidden md:grid size-9 place-items-center rounded-full border border-white/10 bg-white/[0.03] text-ink-300 hover:text-white hover:bg-white/[0.07] transition-colors">
+            <a
+              href="https://github.com/emmguardia/Crevette"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Code source du site sur GitHub"
+              className="hidden md:grid size-9 place-items-center rounded-full border border-white/10 bg-white/[0.03] text-ink-300 hover:text-white hover:bg-white/[0.07] transition-colors"
+            >
               <Github className="size-4" />
             </a>
             <button
@@ -115,7 +126,7 @@ export default function Layout() {
         </AnimatePresence>
       </header>
 
-      <main className="flex-1">
+      <main id="main" className="flex-1">
         <Outlet />
       </main>
 

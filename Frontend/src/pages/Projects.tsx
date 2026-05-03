@@ -77,7 +77,7 @@ export default function Projects() {
             >
               <TiltCard className="h-full">
                 {'href' in p && p.href ? (
-                  <a href={p.href} target="_blank" rel="noopener" className="block h-full text-inherit no-underline">
+                  <a href={p.href} target="_blank" rel="noopener noreferrer" className="block h-full text-inherit no-underline">
                     {inner}
                   </a>
                 ) : (

@@ -1,0 +1,3 @@
+# SPA fallback for Netlify-style hosts (Cloudflare Pages, Netlify, Render, Vercel via legacy adapter).
+# Make sure all client-side routes resolve to index.html.
+/*    /index.html   200
