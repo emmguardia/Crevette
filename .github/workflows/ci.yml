@@ -33,6 +33,9 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
+          # The packageManager field lives in Frontend/package.json — point the
+          # action at it, otherwise it walks up from the repo root and fails.
+          package_json_file: Frontend/package.json
           run_install: false
 
       - name: Setup Node
