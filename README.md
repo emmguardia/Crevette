@@ -44,8 +44,10 @@ Crevette/
 ├── .github/
 │   ├── dependabot.yml         # mises à jour automatiques (npm + actions)
 │   └── workflows/
-│       ├── ci.yml             # typecheck + build à chaque push/PR
-│       └── codeql.yml         # analyse statique de sécurité
+│       ├── ci.yml             # lint + test + build sur push/PR
+│       ├── lighthouse.yml     # audit perf/a11y/SEO sur PR
+│       ├── security.yml       # OSV-Scanner + Trivy
+│       └── dependabot-auto-merge.yml  # auto-merge des MAJ safe
 ├── Frontend/
 │   ├── public/                # assets statiques (favicon, robots, sitemap, og)
 │   ├── src/
@@ -63,12 +65,34 @@ Crevette/
 
 ## Déploiement
 
-Le build statique sort dans `Frontend/dist/` et peut être servi sur n'importe
-quel host statique (Cloudflare Pages, Netlify, Vercel, GitHub Pages…).
+Le build statique sort dans `Frontend/dist/` et peut être servi par n'importe
+quel serveur web (nginx, Caddy, Apache, Cloudflare Pages, Netlify, Vercel…).
 
-- `Frontend/public/_redirects` gère le fallback SPA pour Netlify/CF Pages.
-- `Frontend/public/404.html` gère le fallback SPA pour GitHub Pages
-  (recovery via `sessionStorage`).
+### Self-hosting (nginx)
+
+Un exemple complet est fourni dans
+[`Frontend/nginx.conf.example`](./Frontend/nginx.conf.example) :
+
+- TLS via certbot
+- headers de sécurité (CSP, HSTS, Permissions-Policy, COOP/CORP…)
+- cache long pour `/assets/*` (filenames hashés par Vite)
+- `try_files $uri /index.html` pour le fallback SPA
+- service worker (`/sw.js`) servi sans cache pour que les MAJ partent direct
+
+Workflow de déploiement type :
+
+```bash
+# en local
+cd Frontend && pnpm build
+
+# pousser dist/ sur le serveur (rsync, scp, CD pipeline, comme tu veux)
+rsync -avz --delete dist/ user@server:/var/www/quianne/dist/
+```
+
+### Hosts gérés (alternative)
+
+- `Frontend/public/_redirects` couvre Netlify / Cloudflare Pages.
+- `Frontend/vercel.json` couvre Vercel.
 
 ## Sécurité & qualité
 

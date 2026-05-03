@@ -1,5 +1,5 @@
-import { Suspense, lazy, useEffect } from 'react'
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
+import { Suspense, lazy } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Layout from './components/Layout'
 
@@ -37,87 +37,64 @@ function RouteFallback() {
   )
 }
 
-/**
- * Recover the original path saved by /404.html (GitHub Pages SPA fallback)
- * and replace history with it on first paint.
- */
-function SpaRedirectRecovery() {
-  const navigate = useNavigate()
-  useEffect(() => {
-    try {
-      const saved = sessionStorage.getItem('spa-redirect')
-      if (saved && saved !== '/') {
-        sessionStorage.removeItem('spa-redirect')
-        navigate(saved, { replace: true })
-      }
-    } catch {
-      /* sessionStorage may be unavailable in privacy modes — ignore */
-    }
-  }, [navigate])
-  return null
-}
-
 export default function App() {
   const location = useLocation()
   return (
-    <>
-      <SpaRedirectRecovery />
-      <Suspense fallback={<RouteFallback />}>
-        <Routes location={location}>
-          <Route element={<Layout />}>
-            <Route
-              path="/"
-              element={
-                <AnimatePresence mode="wait">
-                  <PageWrap key="home">
-                    <Home />
-                  </PageWrap>
-                </AnimatePresence>
-              }
-            />
-            <Route
-              path="/about"
-              element={
-                <PageWrap>
-                  <About />
+    <Suspense fallback={<RouteFallback />}>
+      <Routes location={location}>
+        <Route element={<Layout />}>
+          <Route
+            path="/"
+            element={
+              <AnimatePresence mode="wait">
+                <PageWrap key="home">
+                  <Home />
                 </PageWrap>
-              }
-            />
-            <Route
-              path="/projects"
-              element={
-                <PageWrap>
-                  <Projects />
-                </PageWrap>
-              }
-            />
-            <Route
-              path="/game"
-              element={
-                <PageWrap>
-                  <Game />
-                </PageWrap>
-              }
-            />
-            <Route
-              path="/contact"
-              element={
-                <PageWrap>
-                  <Contact />
-                </PageWrap>
-              }
-            />
-            <Route
-              path="*"
-              element={
-                <PageWrap>
-                  <NotFound />
-                </PageWrap>
-              }
-            />
-          </Route>
-        </Routes>
-      </Suspense>
-    </>
+              </AnimatePresence>
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <PageWrap>
+                <About />
+              </PageWrap>
+            }
+          />
+          <Route
+            path="/projects"
+            element={
+              <PageWrap>
+                <Projects />
+              </PageWrap>
+            }
+          />
+          <Route
+            path="/game"
+            element={
+              <PageWrap>
+                <Game />
+              </PageWrap>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <PageWrap>
+                <Contact />
+              </PageWrap>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <PageWrap>
+                <NotFound />
+              </PageWrap>
+            }
+          />
+        </Route>
+      </Routes>
+    </Suspense>
   )
 }
