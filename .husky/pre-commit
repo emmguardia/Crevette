@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
-# Run lint-staged from Frontend/ — git invokes hooks at the repo root.
+# Run lint-staged from Frontend/. Git invokes hooks at the repo root,
+# and pnpm may not be in PATH (it's often a corepack shim) — call the
+# binary out of node_modules directly.
 cd "$(dirname -- "$0")/../Frontend" || exit 1
-pnpm exec lint-staged --config .lintstagedrc.json
+node_modules/.bin/lint-staged --config .lintstagedrc.json
