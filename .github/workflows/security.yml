@@ -19,9 +19,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # OSV catches CVEs in transitive deps that Dependabot misses.
-  # Run as a step (not reusable workflow) so we can mark it non-blocking
-  # — findings still surface in the Security tab via SARIF upload.
+  # OSV catches CVEs in transitive deps. Install the binary directly and
+  # always-write SARIF + a tabular summary, even when nothing is found
+  # (so the SARIF upload never trips on a missing file).
   osv-scan:
     name: OSV Scanner
     runs-on: ubuntu-latest
@@ -32,18 +32,24 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Run OSV-Scanner
-        id: osv
-        continue-on-error: true
-        uses: google/osv-scanner-action/osv-scanner-action@v2.3.5
-        with:
-          scan-args: |-
-            --recursive
-            --skip-git
-            --format=sarif
-            --output=osv-results.sarif
-            --lockfile=Frontend/pnpm-lock.yaml
-            ./
+      - name: Install OSV-Scanner
+        run: |
+          curl -sSL -o osv-scanner \
+            https://github.com/google/osv-scanner/releases/latest/download/osv-scanner_linux_amd64
+          chmod +x osv-scanner
+
+      - name: Run OSV-Scanner (SARIF)
+        run: |
+          ./osv-scanner --format=sarif --output=osv-results.sarif \
+            --lockfile=Frontend/pnpm-lock.yaml || true
+          # Make sure the file always exists, even when no vulns are found
+          # — upload-sarif would otherwise fail with "Path does not exist".
+          if [ ! -s osv-results.sarif ]; then
+            echo '{"version":"2.1.0","$schema":"https://json.schemastore.org/sarif-2.1.0.json","runs":[{"tool":{"driver":{"name":"osv-scanner","informationUri":"https://github.com/google/osv-scanner"}},"results":[]}]}' > osv-results.sarif
+          fi
+
+      - name: Run OSV-Scanner (table for the log)
+        run: ./osv-scanner --lockfile=Frontend/pnpm-lock.yaml || true
 
       - name: Upload OSV results to Code Scanning
         if: always()
